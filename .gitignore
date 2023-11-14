@@ -53,5 +53,4 @@ dkms.conf
 
 # My ignores
 dynamic_array/build
-main.c
 Makefile

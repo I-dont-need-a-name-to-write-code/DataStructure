@@ -43,6 +43,15 @@ void vector_for_each(Vector* array, void (*lambda)(Vector *array, size_t index))
 Vector vector_filter(const Vector* array, bool (*lambda)(const Vector *array, size_t index));
 void vector_sort(Vector *array, bool (*cmpfunc)(const void *ptr1, const void *ptr2));
 
+// Private Functions
+void swap_bytes_(void *a, void *b, size_t bytes);
+size_t random_index_(size_t min, size_t max); 
+void vector_realloc_(Vector *array, size_t new_capacity);
+void vector_insertion_sort_(Vector *array, size_t low, size_t high, bool (*cmpfunc)(const void *ptr1, const void *ptr2));
+size_t vector_partition_(Vector *array, size_t low, size_t high, bool (*cmpfunc)(const void *ptr1, const void *ptr2));
+void vector_hybrid_quick_sort_(Vector *array, size_t low, size_t high, bool (*cmpfunc)(const void *ptr1, const void *ptr2));
+
+// Template Functions
 #define MAKEFUNC_VECTOR_PRINTF(type, fmt, ...) \
     static inline void vector_printf_##type(Vector *array) { \
         for(size_t i = 0; i < vector_size(array); ++i) { \
@@ -55,13 +64,5 @@ void vector_sort(Vector *array, bool (*cmpfunc)(const void *ptr1, const void *pt
     printf(#p_array" := [ (%zu, %zu) | { ", (p_array)->_size, (p_array)->_capacity); \
     vector_printf_##type(p_array); \
     printf(" } ]\n")
-
-// Private Functions
-void swap_bytes_(void *a, void *b, size_t bytes);
-size_t random_index_(size_t min, size_t max); 
-void vector_realloc_(Vector *array, size_t new_capacity);
-void vector_insertion_sort_(Vector *array, size_t low, size_t high, bool (*cmpfunc)(const void *ptr1, const void *ptr2));
-size_t vector_partition_(Vector *array, size_t low, size_t high, bool (*cmpfunc)(const void *ptr1, const void *ptr2));
-void vector_hybrid_quick_sort_(Vector *array, size_t low, size_t high, bool (*cmpfunc)(const void *ptr1, const void *ptr2));
 
 #endif // VECTOR_H
